@@ -18,7 +18,7 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
   // If the user changes the input after an ENS name is already resolved, we want to remove the stale result
   const settledValue = isDebouncedValueLive ? debouncedValue : undefined;
 
-  const { data: ensAddress, isLoading: isEnsAddressLoading } = useEnsAddress({
+  const { data: ensAddress, isSuccess: isEnsAddressSuccess } = useEnsAddress({
     name: settledValue,
     enabled: isENS(debouncedValue),
     chainId: 1,
@@ -64,7 +64,7 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
       error={ensAddress === null}
       value={value as Address}
       onChange={handleChange}
-      disabled={isEnsAddressLoading || isEnsNameLoading || disabled}
+      disabled={isEnsAddressSuccess || isEnsNameLoading || disabled}
       prefix={
         ensName && (
           <div className="flex bg-base-300 rounded-l-full items-center">
